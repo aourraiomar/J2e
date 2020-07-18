@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org"
+ xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout"
+ layout:decorate="layout">
+<head>
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div layout:fragment="content1">
+		<script type="text/javascript">
+function verif_champ(champ) { 
+	if (!champ.replace(/\s+/, '').length) { alert("le champ n'est pas rempli!!!!!"); return false; } return true; }
+</script>
+		<div class="container  mt-4">
+			<div class="card ">
+				<div class="card-header bg-primary text-white">Liste des
+					Villes</div>
+				<div class="card-body">
+					<form name="form1"
+						onsubmit='return verif_champ(document.form1.keyword.value);'
+						method="get" th:action="@{ListVille}">
+						<div class="form-group">
+							<label class="mr-2">Name</label> <input type="text"
+								name="keyword" th:value="${keyword}" />
+							<button class="btn btn-success ml-2">Chercher</button>
+						</div>
+					</form>
+					<form name="form2"
+						onsubmit='return verif_champ(document.form2.keyAjout.value);'
+						method="get" th:action="@{AjouterVille}">
+						<div class="form-group">
+							<label class="mr-2">Name</label> <input type="text"
+								name="keyAjout" th:value="${keyAjout}" />
+							<button class="btn btn-success ml-2">Ajouter Ville</button>
+						</div>
+					</form>
+					<table class=table>
+						<tr>
+							<th>ID</th>
+							<th>NAME</th>
+							<th>LONGITUDE</th>
+							<th>LATITUDE</th>
+							<th>ALTITUDE</th>
+						</tr>
+						<tr th:each="p: ${ville}">
+							<td th:text="${p.id}"></td>
+							<td th:text="${p.name}"></td>
+							<td th:text="${p.longitude}"></td>
+							<td th:text="${p.latitude}"></td>
+							<td th:text="${p.altitude}"></td>
+
+							<td><a
+								onclick="return confirm('etes vous sur pour supprimer  Ville ?')"
+								class="btn btn-danger"
+								th:href="@{deleteVille(id=${p.id},keyword=${p.name},page=${currentpage})}">Supprimer</a></td>
+							<td><a
+								onclick="return confirm('etse vous sur pour afficher Cinemas ?')"
+								class="btn btn-success"
+								th:href="@{AfficherCinemas(KeyCinema=${p.name})}"> Cinemas</a></td>
+							<td><a
+								onclick="return confirm('etse vous sur pour modifier Ville ?')"
+								class="btn btn-success" th:href="@{ModifierVille}"> update</a></td>
+
+						</tr>
+					</table>
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}"><a
+							th:class="${status.index==currentpage?'btn btn-primary':'btn'}"
+							th:href="@{ListVille(page=${status.index},keyword=${keyword})}"
+							th:text="${status.count}"></a></li>
+					</ul>
+					<!--<li  th:each="page,status:${pages}">  -->
+					<!-- <a  th:class="${status.index==currentpage?'btn btn-primary':'btn'}" th:href="@{patientsList(page=${status.index},keyword=${keyword})}" th:text="${status.index}"></a> -->
+					<!--</li>-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

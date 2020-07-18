@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout"
+ layout:decorate="layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body><div layout:fragment="content1">
+<script type="text/javascript">
+function verif_champ(champ) { 
+	if (!champ.replace(/\s+/, '').length) { alert("le champ n'est pas rempli!!!!!"); return false; } alert("l'operation est passee avec succes ");return true; }
+</script>
+<!------ Include the above in your HEAD tag ---------->
+
+<form class="form-horizontal" name="form1"    method="get">
+  <fieldset>
+    <div id="legend">
+      <legend >Add Cinema</legend>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="name"  th:value="${name}" >Name</label>
+      <div class="controls">
+        <input type="text" id="name" name="name"   placeholder="Name" class="input-xlarge" th:value="${name}" required>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="ville" th:value="${ville}">City</label>
+      <div class="controls">
+        <input type="text" id="ville" name="ville" placeholder="City" class="input-xlarge" th:value="${ville}" required>
+      </div>
+    </div>
+ 
+  <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="longitude" th:value="${longitude}">Longitude</label>
+      <div class="controls">
+        <input type="number" id="longitude" name="longitude" placeholder="longitude" class="input-xlarge" th:value="${longitude}" required>
+      </div>
+    </div>
+ 
+ <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="altitude" th:value="${altitude}">Altitude</label>
+      <div class="controls">
+        <input type="number" id="altitude" name="altitude" placeholder="Altitude" class="input-xlarge" th:value="${altitude}" required>
+      </div>
+    </div>
+ 
+ <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="latitude" th:value="${latitude}">Latitude</label>
+      <div class="controls">
+        <input type="number" id="latitude" name="latitude" placeholder="Latitude" class="input-xlarge" th:value="${latitude}" required min="10" max="50">
+      </div>
+    </div>
+    
+     <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="nbr" th:value="${nbr}">NombreSalle</label>
+      <div class="controls">
+        <input type="number" id="nbr" name="nbr" placeholder="nbr" class="input-xlarge" th:value="${nbr}" min="10" max="30">
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-success" th:href="@{AddCinema(name=${name},ville=${ville},longitude=${longitude},altitude=${altitude},latitude=${latitude})}">Add</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+</body>
+</html>

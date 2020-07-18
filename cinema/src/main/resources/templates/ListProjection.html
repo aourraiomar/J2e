@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div layout:fragment="content1">
+		<script type="text/javascript">
+			function verif_champ(champ) {
+				if (!champ.replace(/\s+/, '').length) {
+					alert("le champ n'est pas rempli!!!!!");
+					return false;
+				}
+				alert("l'operation est passee avec succes ");
+				return true;
+			}
+		</script>
+		<div class="container  mt-4">
+			<div class="card">
+				<div class="card-header bg-primary text-white">Liste des
+					Projection</div>
+
+				<div class="card-body">
+					<form name="form1"
+						onsubmit='return verif_champ(document.form1.keyword.value);'
+						method="get" th:action="@{chercherprix}">
+						<div class="form-group">
+							<label class="mr-2">Name</label> <input type="number"
+								name="keyword" th:value="${keyword}" />
+							<button class="btn btn-success ml-2">Chercher par prix</button>
+						</div>
+					</form>
+					<form name="form2"
+						onsubmit='return verif_champ(document.form2.keyFilm.value);'
+						method="get" th:action="@{chercherfilm}">
+						<div class="form-group">
+							<label class="mr-2">Film's name</label> <input type="text"
+								name="keyFilm" th:value="${keyFilm}" />
+							<button class="btn btn-success ml-2">Chercher par film</button>
+						</div>
+					</form>
+					<!-- <form name="form2" onsubmit='return verif_champ(document.form2.keydate.value);' method="get" th:action="@{ListProjection}">
+		<div class="form-group">
+		<label class="mr-2">la date</label>
+		<input type="text" name="keydate" th:value="${keydate}"/>
+		<button class="btn btn-success ml-2" >Chercher par date</button>
+		</div>
+		</form> -->
+					<table class=table>
+						<tr>
+							<th>ID</th>
+							<th>Prix</th>
+							<th>Date de Projection</th>
+							<th>Film's name</th>
+						</tr>
+						<tr th:each="p:${projection}">
+							<td th:text="${p.id}"></td>
+							<td th:text="${p.prix}"></td>
+							<td th:text="${datep}"></td>
+							<td th:text="${nomFilm}"></td>
+
+						</tr>
+
+					</table>
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}"><a
+							th:class="${status.index==currentpage?'btn btn-primary':'btn'}"
+							th:href="@{ListProjection(page=${status.index},keyFilm=${keyFilm},keyword=${keyword})}"
+							th:text="${status.count}"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

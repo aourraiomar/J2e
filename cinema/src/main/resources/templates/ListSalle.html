@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org"xmlns:layout="http://www.ultrq.net.nz/thymeleaf/layout"
+ layout:decorate="layout">
+<head>
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+<div layout:fragment="content1"><script type="text/javascript">
+function verif_champ(champ) { 
+	if (!champ.replace(/\s+/, '').length) { alert("le champ n'est pas rempli!!!!!"); return false; } alert("l'operation est passee avec succes ");return true; }
+</script>
+<div class="container  mt-4">
+		<div class="card" >
+		<div class="card-header bg-primary text-white">Liste des Salles</div>
+
+<div class="card-body">
+		
+			<table class=table>
+				<tr>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>NombrePlaces</th>
+					
+					
+				</tr>
+				<tr th:each="p:${salle}">
+					<td th:text="${p.id}"></td>
+					<td th:text="${p.name}"></td>
+					<td th:text="${p.nombrePlace}"></td>
+					<td><a onclick="return confirm('etes vous sur pour supprimer  Salles ?')" class="btn btn-danger" th:href="@{deleteSalle(id=${p.id})}">Supprimer</a></td> 
+					
+				</tr>
+				
+				</table>
+				<ul class="nav nav-pills">
+		<li th:each="page,status:${pages}">
+		<a  th:class="${status.index==currentpage?'btn btn-primary':'btn'}"  th:href="@{ListSalles(page=${status.index},keyword=${keyword})}" th:text="${status.count}"></a>
+		</li>
+		</ul>
+				
+   		</div> 
+</div>
+</div>
+		</div>		
+</body>
+</html>
